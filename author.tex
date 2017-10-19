@@ -69,24 +69,42 @@ Xalapa, Veracruz, 91000, M\'exico, %\\
 \maketitle
 
 \abstract*{Physical phenomena have been the inspiration for proposing several optimization methods such as electro-search algorithm (ES), central force optimization (CFO), charged system search (CSS). This work presents a new optimization algorithm based on some principles from physics and
-mechanics, which will be called Evolutionary Centers Algorithm (ECA). We utilize the center of mass definition for creating new directions for moving the worst elements in the population to better regions, respect to the objective function. It will be seen that using this strategy will be fortuitous. The efficiency of the new approach is demonstrated using the CEC17 benchmark functions. We present a comparative with the best algorithm (jSO) for that benchmark and the results obtained are interesting.}
+mechanics, which will be called Evolutionary Centers Algorithm (ECA). We utilize the center of mass definition for creating new directions for moving the worst elements in the population, %
+based on their objective function values %
+ to better regions. %
+ % respect to the objective function. It will be seen that using this strategy will be fortuitous.
+ The efficiency of the new approach is demonstrated using the CEC17 benchmark functions. We present a comparison with the best algorithm (jSO) in the  CEC17 competition. 
+%
+ The results obtained are promising..}
 
 \abstract{Physical phenomena have been the inspiration for proposing several optimization methods such as electro-search algorithm (ES), central force optimization (CFO), charged system search (CSS). This work presents a new optimization algorithm based on some principles from physics and
-mechanics, which will be called Evolutionary Centers Algorithm (ECA). We utilize the center of mass definition for creating new directions for moving the worst elements in the population to better regions, respect to the objective function. It will be seen that using this strategy will be fortuitous. The efficiency of the new approach is demonstrated using the CEC17 benchmark functions. We present a comparative with the best algorithm (jSO) for that benchmark and the results obtained are interesting.}
+mechanics, which will be called Evolutionary Centers Algorithm (ECA). We utilize the center of mass definition for creating new directions for moving the worst elements in the population, %
+based on their objective function values %
+ to better regions. %
+ % respect to the objective function. It will be seen that using this strategy will be fortuitous.
+ The efficiency of the new approach is demonstrated using the CEC17 benchmark functions. We present a comparison with the best algorithm (jSO) in the  CEC17 competition. 
+%
+ The results obtained are promising.}
 
 \section{Introduction}
-Real world optimization problems  are complex actually, because they are in change and sometimes large dimension is present. There are several algorithms population based, they are quite simple to implement in any language. Exists two branch of population based algorithms: Evolutionary Algorithms (genetics algorithms, differential evolution, etc.) \cite{jso2017, melanie96, ed1995} and Nature Inspired (bees or ants colony inspired, particle swarm optimization, etc.) \cite{abc2005,pso1995}. In this work, we are focused on evolutionary algorithms.\\
+Real world optimization problems  are complex nowadays, because they can be highly non-linear and sometimes large dimension is present. There are several population-based algorithms population based, which are competitive to solve optimization problems \cite{easSurv}.  %
+Two main  types can be distinguished 
+% they are quite simple to implement in any language. Exists two branch of population based algorithms: 
+evolutionary algorithms (genetic algorithms, differential evolution, etc.) \cite{jso2017, melanie96, ed1995} and swarm intelligence (bees or ants colony inspired, particle swarm optimization, etc.) \cite{abc2005,pso1995}. In this work, we are focused on evolutionary algorithms.\\
 
-Evolutionary algorithms for solving complex bound-constrained optimization problems seem, usually, successful \cite{ed1995}. After this motivation is necessary propose robust algorithms for finding global solutions as well. We need to avoid premature convergence into local optima, that is, we need to apply a population diversity at sufficient high level in early stages of the evolutionary process while in later stages the algorithm needs to reduce the population diversity in order to increase convergence rate.\\
+Evolutionary algorithms for solving complex bound-constrained optimization have provided successful results, usually, successful \cite{ed1995}. After this motivation is necessary propose robust algorithms for finding global solutions as well. We need to avoid premature convergence into local optima, that is, we need to apply a population diversity at sufficient high level in early stages of the evolutionary process while in later stages the algorithm needs to reduce the population diversity in order to increase convergence rate. %
+However, one input issue when EAs are used is the fact that their number of parameters to be fined is low.
+\\
 
-We offer a  physic-inspired algorithm based on mass center on a $D$-dimensional space for  real-parametric single-objective functions. The general idea is create an irregular body using $K$ mass points in population, then the center mass is calculated and get a new direction for the next population.\\
+We offer a  physics-inspired algorithm based on the center of mass concept on a $D$-dimensional space for  real-parameter single-objective optimization. The general idea is to promote the creation an irregular body using $K$ mass points in population, then the center of mass is calculated to get a new direction for the next population.\\
 
-Mono-objective global optimization problems are defined as follows. For a $f(\vec{x})$ objective function, an
+Single-objective optimization problems are defined as follows. For a $f(\vec{x})$ objective function, an
 algorithm needs to find the variables of the $\vec{x}$ vector such that it minimizes or maximizes the function
 $f$. It is assumed that the number of variables in $\vec{x}$ is $D$, that is, $\vec{x} = (x_1,\; x_2 , \ldots , x_D )$. The search space is assumed to be
-convex, where each variable has its  boundaries $x_{j, \min}, \;  x_{j, \max} $ for $j = 1,\; 2,\; \ldots,\; D$. Problems are often encountered where the objective function is not explicitly known, classical optimization methods in this type of problem are hardly applicable \cite{problemas}.\\
+convex, where each variable has its  boundaries $x_{j, \min}, \;  x_{j, \max} $ for $j = 1,\; 2,\; \ldots,\; D$. Problems are often 
+found where the objective function is not explicitly known, then classical optimization methods in this type of problem are hardly applicable \cite{problemas}.\\
 
-There are different algorithms based on biological or physical metaphors with peculiar characteristics, some of them use the current population distribution to generate feasible solutions. For example bio-inspired algorithms such as those based on particle clusters (PSO) \cite{pso1995}, based on bees colony (ABC) \cite{abc2005}. There are also algorithms inspired by physical phenomena such as Newton's Law of Universal Gravitation (CFO) \cite{fisicaSurvey, cfo2007}. Even algorithms based on Differential Evolution  \cite{jso2017, ed1995}. The relation that these algorithms keep, it is the mathematical formulation for generating solutions through the generations:
+There are different algorithms based on biological or physical metaphors with different characteristics. Some of them use the current population distribution to generate feasible solutions, i.e., bio-inspired algorithms such as particle swarm optimization (PSO) \cite{pso1995}, the artificial bee colony (ABC) \cite{abc2005}. There are also algorithms inspired by physical phenomena such as Newton's Law of Universal Gravitation (CFO) \cite{fisicaSurvey, cfo2007}. Even algorithms based on Differential Evolution  \cite{jso2017, ed1995}. The relationship among those algorithms  is their mathematical formulation for generating solutions through the cycles:
 %
 \begin{equation}
 	\vec{x}_{i + 1} = \vec{x}_{i} + \vec{v}_{i + 1}
@@ -95,26 +113,39 @@ There are different algorithms based on biological or physical metaphors with pe
 %
 where each algorithm suggests updating $\vec{v}_{i+1} $ as follow:
 \begin{itemize}
-	\item PSO: $\vec{v}_{i + 1} = \omega \vec{v}_{i} +  
+	\item PSO:
+		$$
+			\vec{v}_{i + 1} = \omega \vec{v}_{i} +  
 					c_1 r_{1, i} ( \vec{x}_{pbest, i} - \vec{x}_i ) + 
-					c_2 r_{2, i} ( \vec{x}_{gbest, i} - \vec{x}_i )$
-	\item ABC: $\vec{v}_{i + 1} = \phi_i (\vec{x}_i - \vec{x}_{r}) $
-	\item CFO: $\vec{v}_{i + 1} = \omega \vec{v}_{i} + {\lambda \vec{F}_{i}} / {m_i} $.
+					c_2 r_{2, i} ( \vec{x}_{gbest, i} - \vec{x}_i ),
+		$$
+		where $\omega$ is a inertia weight used for balancing the global search and local search, $c_1$ and $c_2$ are two positive constants, $r_{1, i},\; r_{2, i}$ are random numbers in the range [0, 1].
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\item ABC:
+		$$
+			\vec{v}_{i + 1} = \phi_i (\vec{x}_i - \vec{x}_{r}),
+		$$
+	where $\phi_i$ is a randomly produced number in the interval $[-1,\;1]$ to find a food source.
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\item CFO: $$
+		\vec{v}_{i + 1} = \omega \vec{v}_{i} + {\lambda \vec{F}_{i}} / {m_i},
+		$$
+		where $\lambda$ is uniformly distributed random variable in [0, 1], $\omega$ is user-defined weight $0 < \omega < 1$, $m_i,\; F_i$ is a mass and force functions both defined by the authors.
 \end{itemize}
 %
 %
-where $\vec{v}$  depends of the population distribution at current generation $i$.\\
+Here, $\vec{v}$ value  depends of the population distribution at current generation $i$.\\
 
-The following section will describe our algorithm and how it relates to what has been described above.
+The following section describes our algorithm and how it relates to what has been described above. Section \ref{sub:algorithm_description} presents the experiments[[[[[]]]]], Section \ref{sec:results} summarizes out conclusions and Section \ref{sec:further_work} indicates the future work. 
 
 \section{ECA} % (fold)
 \label{sec:eca}
 %
 %
-We present ECA algorithm details. First, we are going to describe about center of mass in physics terms \cite{kleppner73,serway}.
+We present ECA details. First, we present the center of mass in physics terms \cite{kleppner73,serway}.
 
 \begin{definition}
-	The center of mass is the unique point $\vec{c}$ at the center of a distribution of mass $U = \{\vec{u}_1,\; \vec{u}_2 , \ldots , \vec{u}_K \}$ in a space that has the property that the weighted position vectors relative to this point sum to zero. That is:
+	The center of mass is the unique point $\vec{c}$ at the center of a distribution of mass $U = \{\vec{u}_1,\; \vec{u}_2 , \ldots , \vec{u}_K \}$ in a space that has the property that the weighted sum position vectors relative to this point is zero. That is:
 
 	\begin{equation}
 		\sum_{i = 1}^K m(\vec{u}_i) (\vec{u}_i - \vec{c}) = 0, \;\; \text{ implies } \;\; 
@@ -124,17 +155,17 @@ We present ECA algorithm details. First, we are going to describe about center o
 	\end{equation}
 	%
 	%
-	where $m(\vec{u}_i)$ is the mass of $\vec{u}_i$ and  $M$ is the sum of the masses of particles in $U$. Here, $m$ is a no-negative function.
+	where $m(\vec{u}_i)$ is the mass of $\vec{u}_i$ and  $M$ is the sum of the masses of vectors in $U$. Here, $m$ is a non-negative function.
 \end{definition}
 %
 %
 \begin{note}
-In analogy to statistics, the center of mass is the mean location of a distribution of mass in space.
+Similar as in Statistics, the center of mass is the mean location of a distribution of mass in space.
 \end{note}
 % 
-The concept of \textit{center of mass} is not new, it was introduced by the ancient Greek physicist, mathematician, and engineer Archimedes of Syracuse. Archimedes worked with simplified assumptions about gravity that amount to a uniform field, thus arriving at the mathematical properties of what we now call the center of mass \cite{kleppner73}.\\
+The concept of \textit{center of mass} is not new. It was introduced by the ancient Greek physicist, mathematician, and engineer Archimedes of Syracuse. Archimedes worked with simplified assumptions about gravity that amount to a uniform field, thus arriving at the mathematical properties of what we now call the center of mass \cite{kleppner73}.\\
 
-For this work, it is going to be necessary consider next Proposition for ensuring stability and keep solutions of ECA algorithm into the convex space.
+For this work,next proposition is required for ensuring stability and keep ECA solutions into the convex space.
 
 \begin{proposition}
 	If $\vec{c}$ is the mass of center of a system of particles $U$, then  for all $ \vec{u}\in U $:
@@ -275,12 +306,6 @@ The parameters in all experiments were: $K = 7$, $\eta_i$ is a uniform random nu
 
 % subsection experiments (end)
 
-\begin{figure}[b]
-\includegraphics[width=\linewidth]{img/converg.pdf}
-\caption{Convergence graphs at median for 51 independent runs. Showing logarithm of the error for visualization purposes.}
-\label{fig:converg}       % Give a unique label
-\end{figure}
-
 % section eca (end)
 
 
@@ -291,6 +316,12 @@ The parameters in all experiments were: $K = 7$, $\eta_i$ is a uniform random nu
 Results of ECA are in Table \ref{tab:eca}, note that ECA could be an excellent solution for optimization problems because using few evaluations we have acceptable solutions respect to jSO. We compared ECA with jSO (best solution for CEC17 benchmark) for 51 independent runs in Table \ref{tab:jso}, we obtained interesting and numerically similar results to jSO, although this version of differential evolution is adaptive.\\
 
 Figure \ref{fig:converg} shows divergence graphs. This shows that ECA converges fast and this shows that ECA converges fast and this sometimes is good for having quick results in real world application. Compare ECA with jSO shows that this strategy could be improved with some  self-adaptation technique and thus obtain better results.
+
+\begin{figure}[!ht]
+\includegraphics[width=\linewidth]{img/converg.pdf}
+\caption{Convergence graphs at median for 51 independent runs. Showing logarithm of the error for visualization purposes.}
+\label{fig:converg}       % Give a unique label
+\end{figure}
 \begin{table}[!ht]
 \centering
 \caption{Results of 51 independent runs of ECA on CEC17 problems for $D=10$.}
@@ -402,7 +433,7 @@ Implement a self-adaptation technique for solving CEC17 benchmark and obtain com
 
 % section further_work (end)
 
-% \clearpage
+\clearpage
 \bibliographystyle{plain}
 \bibliography{references}
 
