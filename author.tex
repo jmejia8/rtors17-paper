@@ -166,7 +166,7 @@ where each algorithm updates $\vec{v}_{i+1} $ as follows:
 In the three previous cases, the $\vec{v}$ value  depends of the population 
 distribution at current generation $i$.\\
 
-The following section (\ref{sec:eca}) describes our algorithm and how it 
+The following Section \ref{sec:eca} describes our algorithm and how it 
 relates to what has been  described above. Section \ref{sec:results} 
 presents the results obtained.  Section \ref{sec:conclusions} summarizes 
 our conclusions and Section \ref{sec:further_work}  indicates the future work. 
@@ -205,7 +205,7 @@ of mass in space.
 The concept of \textit{center of mass} is, by far, not new. It was introduced by the ancient 
 Greek physicist, mathematician, and engineer Archimedes of Syracuse. Archimedes 
 worked with some assumptions about gravity in a uniform field, so as to 
-get the mathematical properties of what we now call the center or mass \cite{kleppner73}.\\
+get the mathematical properties of what we now call the center of mass \cite{kleppner73}.\\
 
 For this work, the following proposition is required for ensuring stability and keep ECA 
 solutions into the convex space.
@@ -309,7 +309,7 @@ its position, see Figure \ref{fig:masses}.
 			\State $A = \emptyset$
 			\For {each $\vec{x}$ in $P$}
 				\State Generate $U \subset P$ such that  card$(U) = K$
-				\State Calculate $\vec{c}$ a using $U$ with (\ref{eqn:center})
+				\State Calculate $\vec{c}$ using $U$ with (\ref{eqn:center})
 				\State $\eta \gets \text{rand}(0,\; \eta_{\max}) $ 
 				\State $\vec{h} \gets \vec{x} + \eta  * (\vec{c} - \vec{u}) $ where $ \vec{u} \in U $ random
 				
@@ -366,7 +366,7 @@ functions of CEC 2017 competition on real-parameter single-objective optimizatio
 
 
 For this experimentation, $D = 10$ was considered. Here, the optimal values for the test 
-functions are known (see Table \ref{tab:funcs} where representive functions are shown). There is also a maximum number of 
+functions are known (see Table \ref{tab:funcs} where representative functions are shown). There is also a maximum number of 
 evaluations equal to \textit{max\_nfes} $= D \times 10,000$.\\
 
 The parameters in all experiments were: $K = 7$, $\eta_i$ is a uniform random number 
@@ -418,7 +418,7 @@ computationally-expensive real-world optimization problems.
 	\begin{tabular}{p{1cm}p{2.5cm}p{2.5cm}p{2.5cm}p{2.5cm}p{2.5cm}}
 		\hline
 		\noalign{\smallskip}
-		$f$ & Best & Wrost & Median & Mean &  Std. \\
+		$f$ & Best & Worst & Median & Mean &  Std. \\
 		\noalign{\smallskip}\svhline\noalign{\smallskip}
 		$f_{1}$ & 0.00000E$+$00 & 0.00000E$+$00 & 0.00000E$+$00 & 0.00000E$+$00 & 0.00000E$+$00 \\ \hline
 		$f_{2}$ & 0.00000E$+$00 & 0.00000E$+$00 & 0.00000E$+$00 & 0.00000E$+$00 & 0.00000E$+$00 \\ \hline
@@ -516,7 +516,7 @@ A new meta-heuristic optimization algorithm, denoted as Evolutionary Centers
 Algorithm, inspired by the center of mass of a system of particles was proposed. 
 The results showed the capability of ECA to consistently reach the vicinity 
 of the global optima in different types of search spaces. ECA also provided 
-a competitive, but still not better, performance agaist the winner of the 
+a competitive, but still not better, performance against the winner of the 
 CEC 2017 competition on real-parameter single-objective optimization. ECA 
 is a simple algorithm which requires the fine-tuning of just two parameters, 
 besides the population size.\\
