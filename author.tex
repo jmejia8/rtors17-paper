@@ -1,74 +1,53 @@
 %%%%%%%%%%%%%%%%%%%% author.tex %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% sample root file for your "contribution" to a contributed volume
+% sample root file for your "contribution" to a proceedings volume
 %
 % Use this file as a template for your own input.
 %
-%%%%%%%%%%%%%%%% Springer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% Springer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-%% RECOMMENDED %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\documentclass[graybox]{svmult}
+\documentclass{svproc}
 %
-%% choose options for [] as required from the list
-%% in the Reference Guide
+% RECOMMENDED %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-\usepackage{mathptmx}       % selects Times Roman as basic font
-\usepackage{helvet}         % selects Helvetica as sans-serif font
-\usepackage{courier}        % selects Courier as typewriter font
-\usepackage{type1cm}        % activate if the above 3 fonts are
-                             % not available on your system
-%
-\usepackage{makeidx}         % allows index generation
-\usepackage{graphicx}        % standard LaTeX graphics tool
-%                             % when including figure files
-\usepackage{multicol}        % used for the two-column index
-\usepackage[bottom]{footmisc}% places footnotes at page bottom
-%
-%% see the list of further useful packages
-%% in the Reference Guide
-%
-\makeindex             % used for the subject index
-%                       % please use the style svind.ist with
-%                       % your makeindex program
-%
+
+% to typeset URLs, URIs, and DOIs
+\usepackage{url}
+\def\UrlFont{\rmfamily}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % jmejia added
 \usepackage{amsmath,amssymb}
+\usepackage{graphicx}
 \usepackage{algorithm, algpseudocode}
-\graphicspath{{img/}}
+% \graphicspath{{img/}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
+\mainmatter              % start of a contribution
 
 \title{A New Evolutionary Optimization Method Based on Center of Mass}
-% Use \titlerunning{Short Title} for an abbreviated version of
-% your contribution title if the original one is too long
-\author{J. A. Mej\'ia de-Dios and Efr\'en Mezura-Montes}
-% Use \authorrunning{Short Title} for an abbreviated version of
-% your contribution title if the original one is too long
-\institute{J. A. Mej\'ia de-Dios \at
-Artificial Intelligence Research Center, %\\
-University of Veracruz, %\\
-Sebasti\'an Camacho 5, Centro %\\
-Xalapa, Veracruz, 91000, M\'exico, %\\
-\email{jesusmejded@gmail.com}
-\and Efr\'en Mezura-Montes
-\at
-Artificial Intelligence Research Center, %\\
-University of Veracruz, %\\
-Sebasti\'an Camacho 5, Centro %\\
-Xalapa, Veracruz, 91000, M\'exico, %\\
-\email{emezura@uv.mx}}
 %
-% Use the package "url.sty" to avoid
-% problems with special characters
-% used in your E-mail or web address
+\titlerunning{Evolutionary Centers Algorithm}  % abbreviated title (for running head)
+
+\author{J. A. Mej\'ia de-Dios\inst{1} \and Efr\'en Mezura-Montes\inst{1}}
 %
+\authorrunning{Mej\'ia de-Dios and Mezura-Montes} % abbreviated author list (for running head)
+%
+\institute{%
+Artificial Intelligence Research Center, \\
+University of Veracruz, \\
+Sebasti\'an Camacho 5, Centro \\
+Xalapa, Veracruz, 91000, M\'exico, \\
+WWW home page: \texttt{https://www.uv.mx/ciia/}
+}
+
 \maketitle
 
-\abstract*{Physical phenomena have been the inspiration for proposing different
+\begin{abstract}
+Physical phenomena have been the inspiration for proposing different
 optimization methods such as electro-search algorithm (ES), central force 
 optimization (CFO), and charged system search (CSS) among others. This work presents a new 
 optimization algorithm based on some principles from physics and
@@ -77,18 +56,9 @@ the center of mass definition for creating new directions for moving the worst
 elements in the population,  based on their objective function values, %
 to better regions of the search space.  The efficiency of the new approach is showed by using the 
 CEC 2017 competition benchmark functions. We present a comparison against the best algorithm (jSO) 
-in such competition.  The results obtained are promising.}
-
-\abstract{Physical phenomena have been the inspiration for proposing different
-optimization methods such as electro-search algorithm (ES), central force 
-optimization (CFO), and charged system search (CSS) among others. This work presents a new 
-optimization algorithm based on some principles from physics and
-mechanics, which is called Evolutionary Centers Algorithm (ECA). We utilize 
-the center of mass definition for creating new directions for moving the worst 
-elements in the population,  based on their objective function values, %
-to better regions of the search space.  The efficiency of the new approach is showed by using the 
-CEC 2017 competition benchmark functions. We present a comparison against the best algorithm (jSO) 
-in such competition.  The results obtained are promising.}
+in such competition.  The results obtained are promising.
+\keywords{Optimization, center of mass, evolutionary algorithm, physics-inspired}
+\end{abstract}
 
 \section{Introduction}
 Nowadays, real-world optimization problems  are complex to solve due to 
@@ -96,7 +66,7 @@ different sources of difficulty, e.g., highly  non-linear objective function
 and constraints and large number of variables. There are several population-based 
 algorithms, which are competitive to solve optimization problems \cite{easSurv}.  
 Two main  types can be distinguished:  evolutionary algorithms (EAs), e.g., genetic algorithms, 
-differential evolution, etc., \cite{jso2017, melanie96, ed1995} and swarm 
+differential evolution, etc., \cite{jso2017,melanie96,ed1995} and swarm 
 intelligence, e.g., artificial bee colony, ant system, particle swarm optimization, etc.
 \cite{abc2005,pso1995}. In this work, we are focused on EAs.\\
 
@@ -126,7 +96,7 @@ different characteristics. Some of them use the current population distribution
 to generate new solutions, i.e., swarm intelligence algorithms such as particle 
 swarm optimization (PSO) \cite{pso1995}, and the artificial bee colony (ABC) \cite{abc2005}. 
 There are also algorithms inspired by physical phenomena such as Newton's Law of 
-Universal Gravitation (CFO) \cite{fisicaSurvey, cfo2007}. The relationship among those  
+Universal Gravitation (CFO) \cite{fisicaSurvey,cfo2007}. The relationship among those  
 algorithms  is their mathematical formulation for generating solutions 
 through an iterative process:
 %
@@ -275,10 +245,10 @@ in some regions, then this algorithm may find some difficulties  when
 dealing with such issue.
 \end{note}
 
-\begin{figure}[!ht]
-	\sidecaption
+\begin{figure}%[!ht]
+	\centering
 	\includegraphics[width=7cm]{img/masses.pdf}
-	\caption{$c_m$ is center of mass, $c_g$ is geometric center of black points. 
+	\caption{$c_m$ is center of mass, $c_g$ is geometric center of black points. %
 	Black point radius is its mass. Note the bias given by the weighted sum.}
 	\label{fig:masses}       % Give a unique label
 \end{figure}
@@ -289,15 +259,15 @@ with the highest mass, the position of the center of mass is nearest to
 its position, see Figure \ref{fig:masses}.
 \end{note}
 
-\begin{figure}[!ht]
-	\sidecaption
+\begin{figure}%[!ht]
+	\centering
 	\includegraphics[width=7cm]{img/ecaG.pdf}
-	\caption{Schematic diagram representing a generation of ECA. Gray points 
+	\caption{Schematic diagram representing a generation of ECA. Gray points % 
 	represent elements in $U$.}
 	\label{fig:ecag}       % Give a unique label
 \end{figure}
 
-\begin{algorithm}[!ht]
+\begin{algorithm}%[!ht]
 	\caption{ECA pseudocode}
 	\label{algoritmoEca}
 	\begin{algorithmic}[1]
@@ -339,8 +309,8 @@ quad-core 2.4 GHz CPU and 8 GB of RAM and it was tested in thirty
 functions of CEC 2017 competition on real-parameter single-objective optimization \cite{cec2017}.\\
 
 
-\begin{table}[!ht]
-	\centering
+\begin{table}%[!ht]
+	% \centering
 	\caption{Representative functions from CEC 2017 benchmark. This set of %
 	functions are shifted  and rotated. The search range is $[-100,\; 100]^D$.}
 	\label{tab:funcs}
@@ -403,13 +373,15 @@ Figure \ref{fig:converg} shows ECA convergence graphs. Those plots show that
 ECA is able to converge fast in most cases, which can be suitable for 
 computationally-expensive real-world optimization problems.  
 
-\begin{figure}[!ht]
+\begin{figure}%[!ht]
+\centering
 \includegraphics[width=\linewidth]{img/converg.pdf}
-\caption{Convergence graphs at the run located in the median of 51 independent %
-		runs. Log scale is used for visualization purposes.}
+\caption{Convergence graphs at the run located in the median of 51 independent  runs. Log scale is used for visualization purposes.}
 \label{fig:converg}       % Give a unique label
 \end{figure}
-\begin{table}[!ht]
+%
+%
+\begin{table}%[!ht]
 \centering
 \caption{Results of 51 independent runs of ECA on CEC17 problems for $D=10$.}
 \label{tab:eca}
@@ -417,9 +389,10 @@ computationally-expensive real-world optimization problems.
 	\renewcommand{\arraystretch}{1.3}
 	\begin{tabular}{p{1cm}p{2.5cm}p{2.5cm}p{2.5cm}p{2.5cm}p{2.5cm}}
 		\hline
-		\noalign{\smallskip}
+		% \noalign{\smallskip}
 		$f$ & Best & Worst & Median & Mean &  Std. \\
-		\noalign{\smallskip}\svhline\noalign{\smallskip}
+		\hline
+		% \noalign{\smallskip}\svhline\noalign{\smallskip}
 		$f_{1}$ & 0.00000E$+$00 & 0.00000E$+$00 & 0.00000E$+$00 & 0.00000E$+$00 & 0.00000E$+$00 \\ \hline
 		$f_{2}$ & 0.00000E$+$00 & 0.00000E$+$00 & 0.00000E$+$00 & 0.00000E$+$00 & 0.00000E$+$00 \\ \hline
 		$f_{3}$ & 0.00000E$+$00 & 0.00000E$+$00 & 0.00000E$+$00 & 0.00000E$+$00 & 0.00000E$+$00 \\ \hline
@@ -454,7 +427,7 @@ computationally-expensive real-world optimization problems.
 }
 \end{table}
 
-\begin{table}[!ht]
+\begin{table}%[!ht]
 	\centering
 	\caption{Comparison of results between ECA and jSO in %
 	$D = 10$ CEC 2017 test problems. Wilcoxon rank-sum test ($\alpha = 0.05$)  %
@@ -468,9 +441,10 @@ computationally-expensive real-world optimization problems.
 	\renewcommand{\arraystretch}{1.3}
 	\begin{tabular}{p{1cm}p{2.5cm}p{2.5cm}c}
 		\hline
-		\noalign{\smallskip}
+		% \noalign{\smallskip}
 		$f$ & ECA & jSO  \\
-		\noalign{\smallskip}\svhline\noalign{\smallskip}
+		\hline
+		% \noalign{\smallskip}\svhline\noalign{\smallskip}
 		$f_{1}$ & 0.00000E$+$00  & 0.00000E$+$00 & $\approx$  \\ \hline
 		$f_{2}$ & 0.00000E$+$00  & 0.00000E$+$00 & $\approx$  \\ \hline
 		$f_{3}$ & 0.00000E$+$00  & 0.00000E$+$00 & $\approx$  \\ \hline
@@ -500,8 +474,8 @@ computationally-expensive real-world optimization problems.
 		$f_{27}$ & 3.92839E$+$02  & 3.89468E$+$02 & --  \\ \hline
 		$f_{28}$ & 3.00000E$+$02  & 3.40596E$+$02 & +  \\ \hline
 		$f_{29}$ & 2.57882E$+$02  & 2.34365E$+$02 & --  \\ \hline
-		$f_{30}$ & 3.98513E$+$02  & 3.94521E$+$02 & --  \\ \svhline
-			Mean & 116.9022       & 99.03207 & \\ \svhline
+		$f_{30}$ & 3.98513E$+$02  & 3.94521E$+$02 & --  \\ \hline
+			Mean & 116.9022       & 99.03207 & \\ \hline
 	\end{tabular}
 }
 \end{table}
