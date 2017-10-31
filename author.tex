@@ -56,7 +56,7 @@ the center of mass definition for creating new directions for moving the worst
 elements in the population,  based on their objective function values, %
 to better regions of the search space.  The efficiency of the new approach is showed by using the 
 CEC 2017 competition benchmark functions. We present a comparison against the best algorithm (jSO) 
-in such competition.  The results obtained are promising.
+in such competition and against a classical method (SQP) for nonlinear optimization.  The results obtained are promising.
 \keywords{Optimization, center of mass, evolutionary algorithm, physics-inspired}
 \end{abstract}
 
@@ -145,6 +145,16 @@ our conclusions and Section \ref{sec:further_work}  indicates the future work.
 \label{sec:eca}
 %
 %
+\subsection*{Motivation} % (fold)
+The center of mass is a geometric property of any object. Intuitively, it is the 
+average location of the weight of an object. We can completely describe the motion 
+of any object through space in terms of the translation of the center of mass of 
+the object from one place to another, and the rotation of the object about its 
+center of mass if it is free to rotate. This is motivation for using center of mass
+concept, we translate the population to places where mass of entire population is
+maximum.\\
+% subsection motivation (end)
+
 We present ECA details. First, we introduce the center of mass in physics 
 terms \cite{kleppner73,serway}.
 
@@ -245,7 +255,7 @@ in some regions, then this algorithm may find some difficulties  when
 dealing with such issue.
 \end{note}
 
-\begin{figure}%[!ht]
+\begin{figure}[!ht]
 	\centering
 	\includegraphics[width=7cm]{img/masses.pdf}
 	\caption{$c_m$ is center of mass, $c_g$ is geometric center of black points. %
@@ -259,7 +269,7 @@ with the highest mass, the position of the center of mass is nearest to
 its position, see Figure \ref{fig:masses}.
 \end{note}
 
-\begin{figure}%[!ht]
+\begin{figure}[!ht]
 	\centering
 	\includegraphics[width=7cm]{img/ecaG.pdf}
 	\caption{Schematic diagram representing a generation of ECA. Gray points % 
@@ -267,7 +277,7 @@ its position, see Figure \ref{fig:masses}.
 	\label{fig:ecag}       % Give a unique label
 \end{figure}
 
-\begin{algorithm}%[!ht]
+\begin{algorithm}[!ht]
 	\caption{ECA pseudocode}
 	\label{algoritmoEca}
 	\begin{algorithmic}[1]
@@ -309,7 +319,7 @@ quad-core 2.4 GHz CPU and 8 GB of RAM and it was tested in thirty
 functions of CEC 2017 competition on real-parameter single-objective optimization \cite{cec2017}.\\
 
 
-\begin{table}%[!ht]
+\begin{table}[!ht]
 	% \centering
 	\caption{Representative functions from CEC 2017 benchmark. This set of %
 	functions are shifted  and rotated. The search range is $[-100,\; 100]^D$.}
@@ -358,7 +368,8 @@ The statistical results obtained by ECA are reported in Table \ref{tab:eca}.
 It is worth noting  that ECA obtained results close the optimum values 
 while reporting low standard deviation values. Therefore, ECA behavior can 
 be considered as robust and suitable to deal with different type of search spaces. 
-Furthermore, we compared ECA against the most competitive algorithm in 
+Furthermore, we compared ECA against a nonlinear optimization algorithm (SQP) \cite{sqp}, 
+and the most competitive algorithm in 
 the CEC 2017 competition on real-parameter single-objective optimization (jSO), 
 which is an adaptive algorithm based on differential evolution. The comparison 
 based on 51 independent runs by each algorithm is presented in Table \ref{tab:jso}. 
@@ -367,13 +378,14 @@ was able to outperform jSO in five test functions, it reached similar
 results in seven test problems, and finally ECA was outperformed by jSO 
 in eighteen functions. ECA was then competitive in twelve test problems. 
 Moreover, ECA is more simple to implement than jSO and requires less 
-mechanisms to operate.\\
+mechanisms to operate. Note that  ECA outperformed SQP most of the time.
+\\
 
 Figure \ref{fig:converg} shows ECA convergence graphs. Those plots show that 
 ECA is able to converge fast in most cases, which can be suitable for 
 computationally-expensive real-world optimization problems.  
 
-\begin{figure}%[!ht]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=\linewidth]{img/converg.pdf}
 \caption{Convergence graphs at the run located in the median of 51 independent  runs. Log scale is used for visualization purposes.}
@@ -381,7 +393,7 @@ computationally-expensive real-world optimization problems.
 \end{figure}
 %
 %
-\begin{table}%[!ht]
+\begin{table}[!ht]
 \centering
 \caption{Results of 51 independent runs of ECA on CEC17 problems for $D=10$.}
 \label{tab:eca}
@@ -427,55 +439,56 @@ computationally-expensive real-world optimization problems.
 }
 \end{table}
 
-\begin{table}%[!ht]
+\begin{table}[!ht]
 	\centering
-	\caption{Comparison of results between ECA and jSO in %
+	\caption{Comparison of results between ECA, jSO and SQP  in %
 	$D = 10$ CEC 2017 test problems. Wilcoxon rank-sum test ($\alpha = 0.05$)  %
-	was computed. ``+'' means that ECA outperformed jSO in the function  %
-	in the corresponding row, ``-'' means that jSO outperformed ECA, and  %
-	``$\approx$'' means that no significant-difference was observed between algorithms.}
+	was computed. ``+'' means that ECA outperformed jSO/SQP in the function  %
+	in the corresponding row, ``-'' means that jSO/SQP outperformed ECA, and  %
+	``$\approx$'' means that no significant-difference was observed between algorithms.
+	Note that SQP algorithm was outperformed by ECA in 29 of 30 functions.}
 	\label{tab:jso}
 	%
 	%
 \scalebox{0.7}{
 	\renewcommand{\arraystretch}{1.3}
-	\begin{tabular}{p{1cm}p{2.5cm}p{2.5cm}c}
+	\begin{tabular}{p{1cm}p{2.3cm}p{0.5cm}p{2.3cm}p{2.3cm}p{0.5cm}}
 		\hline
 		% \noalign{\smallskip}
-		$f$ & ECA & jSO  \\
+		$f$ & ECA &  & jSO & SQP  \\
 		\hline
 		% \noalign{\smallskip}\svhline\noalign{\smallskip}
-		$f_{1}$ & 0.00000E$+$00  & 0.00000E$+$00 & $\approx$  \\ \hline
-		$f_{2}$ & 0.00000E$+$00  & 0.00000E$+$00 & $\approx$  \\ \hline
-		$f_{3}$ & 0.00000E$+$00  & 0.00000E$+$00 & $\approx$  \\ \hline
-		$f_{4}$ & 0.00000E$+$00  & 0.00000E$+$00 & $\approx$  \\ \hline
-		$f_{5}$ & 7.93134E$+$00  & 1.67777E$+$00 & --  \\ \hline
-		$f_{6}$ & 7.68970E--05  & 0.00000E$+$00 & --  \\ \hline
-		$f_{7}$ & 1.79819E$+$01  & 1.20817E$+$01 & --  \\ \hline
-		$f_{8}$ & 5.20411E$+$00  & 1.91188E$+$00 & --  \\ \hline
-		$f_{9}$ & 0.00000E$+$00  & 0.00000E$+$00 & $\approx$  \\ \hline
-		$f_{10}$ & 7.15419E$+$02  & 3.83851E$+$01 & --  \\ \hline
-		$f_{11}$ & 1.40699E$+$00  & 0.00000E$+$00 & --  \\ \hline
-		$f_{12}$ & 7.23057E$+$01  & 3.55067E--01 & --  \\ \hline
-		$f_{13}$ & 3.57464E$+$00  & 2.68638E$+$00 & $\approx$  \\ \hline
-		$f_{14}$ & 1.62895E$+$00  & 1.36563E--01 & --  \\ \hline
-		$f_{15}$ & 1.03424E$+$00  & 3.00324E--01 & --  \\ \hline
-		$f_{16}$ & 3.42342E$+$00  & 5.49544E--01 & --  \\ \hline
-		$f_{17}$ & 3.65033E$+$01  & 5.25569E--01 & --  \\ \hline
-		$f_{18}$ & 5.91709E--01  & 2.17729E--01 & --  \\ \hline
-		$f_{19}$ & 5.22549E--01  & 7.72037E--03 & --  \\ \hline
-		$f_{20}$ & 2.45399E$+$01  & 3.36657E--01 & --  \\ \hline
-		$f_{21}$ & 1.02042E$+$02  & 1.42465E$+$02 & +  \\ \hline
-		$f_{22}$ & 4.87450E$+$01  & 1.00000E$+$02 & +  \\ \hline
-		$f_{23}$ & 3.03630E$+$02  & 3.01261E$+$02 & --  \\ \hline
-		$f_{24}$ & 1.11616E$+$02  & 2.96919E$+$02 & +  \\ \hline
-		$f_{25}$ & 3.99730E$+$02  & 4.12195E$+$02 & +  \\ \hline
-		$f_{26}$ & 3.00000E$+$02  & 3.00000E$+$02 & $\approx$  \\ \hline
-		$f_{27}$ & 3.92839E$+$02  & 3.89468E$+$02 & --  \\ \hline
-		$f_{28}$ & 3.00000E$+$02  & 3.40596E$+$02 & +  \\ \hline
-		$f_{29}$ & 2.57882E$+$02  & 2.34365E$+$02 & --  \\ \hline
-		$f_{30}$ & 3.98513E$+$02  & 3.94521E$+$02 & --  \\ \hline
-			Mean & 116.9022       & 99.03207 & \\ \hline
+		$f_{1}$ & 0.00000E$+$00  &  $\approx$  & 0.00000E$+$00 & 3.220300E$-$04 & --\\ \hline
+		$f_{2}$ & 0.00000E$+$00  &  $\approx$  & 0.00000E$+$00 & 6.065700E$+$20 & --\\ \hline
+		$f_{3}$ & 0.00000E$+$00  &  $\approx$  & 0.00000E$+$00 & 0.000000E$+$00 & $\approx$\\ \hline
+		$f_{4}$ & 0.00000E$+$00  &  $\approx$  & 0.00000E$+$00 & 6.253000E$-$01 & --\\ \hline
+		$f_{5}$ & 7.93134E$+$00  &  --  & 1.67777E$+$00 & 2.685479E$+$02 & --\\ \hline
+		$f_{6}$ & 7.68970E--05  &  --  & 0.00000E$+$00 & 9.300540E$+$01 & --\\ \hline
+		$f_{7}$ & 1.79819E$+$01  &  --  & 1.20817E$+$01 & 5.279684E$+$02 & --\\ \hline
+		$f_{8}$ & 5.20411E$+$00  &  --  & 1.91188E$+$00 & 1.641353E$+$02 & --\\ \hline
+		$f_{9}$ & 0.00000E$+$00  &  $\approx$  & 0.00000E$+$00 & 4.765000E$+$03 & --\\ \hline
+		$f_{10}$ & 7.15419E$+$02  &  --  & 3.83851E$+$01 & 1.582000E$+$03 & --\\ \hline
+		$f_{11}$ & 1.40699E$+$00  &  --  & 0.00000E$+$00 & 8.694410E$+$01 & --\\ \hline
+		$f_{12}$ & 7.23057E$+$01  &  --  & 3.55067E--01 & 5.889026E$+$02 & --\\ \hline
+		$f_{13}$ & 3.57464E$+$00  &  $\approx$  & 2.68638E$+$00 & 2.617198E$+$02 & --\\ \hline
+		$f_{14}$ & 1.62895E$+$00  &  --  & 1.36563E--01 & 1.054084E$+$02 & --\\ \hline
+		$f_{15}$ & 1.03424E$+$00  &  --  & 3.00324E--01 & 9.494020E$+$01 & --\\ \hline
+		$f_{16}$ & 3.42342E$+$00  &  --  & 5.49544E--01 & 6.348346E$+$02 & --\\ \hline
+		$f_{17}$ & 3.65033E$+$01  &  --  & 5.25569E--01 & 8.089248E$+$02 & --\\ \hline
+		$f_{18}$ & 5.91709E--01  &  --  & 2.17729E--01 & 1.050214E$+$02 & --\\ \hline
+		$f_{19}$ & 5.22549E--01  &  --  & 7.72037E--03 & 8.497336E$+$02 & --\\ \hline
+		$f_{20}$ & 2.45399E$+$01  &  --  & 3.36657E--01 & 5.496386E$+$02 & --\\ \hline
+		$f_{21}$ & 1.02042E$+$02  &  +  & 1.42465E$+$02 & 3.480549E$+$02 & --\\ \hline
+		$f_{22}$ & 4.87450E$+$01  &  +  & 1.00000E$+$02 & 1.470100E$+$03 & --\\ \hline
+		$f_{23}$ & 3.03630E$+$02  &  --  & 3.01261E$+$02 & 6.704390E$+$02 & --\\ \hline
+		$f_{24}$ & 1.11616E$+$02  &  +  & 2.96919E$+$02 & 4.196612E$+$02 & --\\ \hline
+		$f_{25}$ & 3.99730E$+$02  &  +  & 4.12195E$+$02 & 4.360669E$+$02 & --\\ \hline
+		$f_{26}$ & 3.00000E$+$02  &  $\approx$  & 3.00000E$+$02 & 1.591800E$+$03 & --\\ \hline
+		$f_{27}$ & 3.92839E$+$02  &  --  & 3.89468E$+$02 & 4.350638E$+$02 & --\\ \hline
+		$f_{28}$ & 3.00000E$+$02  &  +  & 3.40596E$+$02 & 4.037759E$+$02 & --\\ \hline
+		$f_{29}$ & 2.57882E$+$02  &  --  & 2.34365E$+$02 & 2.005400E$+$03 & --\\ \hline
+		$f_{30}$ & 3.98513E$+$02  &  --  & 3.94521E$+$02 & 3.957100E$+$08 & --\\ \hline
+			Mean & 116.9022       &       & 99.03207 &  2.021900E$+$19 \\ \hline
 	\end{tabular}
 }
 \end{table}
