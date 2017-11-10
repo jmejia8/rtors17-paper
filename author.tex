@@ -20,8 +20,8 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % jmejia added
-\usepackage{amsmath,amssymb}
-\usepackage{graphicx}
+\usepackage{amsmath,amssymb} 
+\usepackage{graphicx} 
 \usepackage{algorithm, algpseudocode}
 % \graphicspath{{img/}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -32,7 +32,7 @@
 %
 \titlerunning{Evolutionary Centers Algorithm}  % abbreviated title (for running head)
 
-\author{J. A. Mej\'ia de-Dios\inst{1} \and Efr\'en Mezura-Montes\inst{1}}
+\author{J.A. Mej\'ia-de-Dios \and Efr\'en Mezura-Montes}
 %
 \authorrunning{Mej\'ia de-Dios and Mezura-Montes} % abbreviated author list (for running head)
 %
@@ -41,6 +41,7 @@ Artificial Intelligence Research Center, \\
 University of Veracruz, \\
 Sebasti\'an Camacho 5, Centro \\
 Xalapa, Veracruz, 91000, M\'exico, \\
+jesusmejded@gmail.com; emezura@uv.mx\\
 WWW home page: \texttt{https://www.uv.mx/ciia/}
 }
 
@@ -114,20 +115,24 @@ where each algorithm updates $\vec{v}_{i+1} $ as follows:
 					c_2 r_{2, i} ( \vec{x}_{gbest, i} - \vec{x}_i ),
 		$$
 		where $\omega$ is a inertia weight used for balancing the global search 
-		and local search, $c_1$ and $c_2$ are two positive constants, $r_{1, i},\; r_{2, i}$ 
+		and local search, $\vec{x}_{pbest, i}$ and $\vec{x}_{gbest, i}$ are the 
+		best position reached by solution $i$ so far and the best solution in the 
+		population, respectively; $c_1$ and $c_2$ are two positive constants, $r_{1, i},\; r_{2, i}$ 
 		are random numbers with uniform distribution in the range [0, 1].
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\item ABC:
 		$$
 			\vec{v}_{i + 1} = \phi_i (\vec{x}_i - \vec{x}_{r}),
 		$$
-	where $\phi_i$ is a randomly produced number with uniform distribution 
+	where $\vec{x}_i$ is the current solution, $\vec{x}_r$ is a randomly chosen 
+	solution, $\phi_i$ is a randomly produced number with uniform distribution 
 	in the interval $[-1,\;1]$.
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\item CFO: $$
 		\vec{v}_{i + 1} = \omega \vec{v}_{i} + {\lambda \vec{F}_{i}} / {m_i},
 		$$
-		where $\lambda$ is a uniformly distributed random variable in [0, 1], $\omega$ 
+		where $\vec{v}_{i}$ is the current solution, $\lambda$ is a uniformly 
+		distributed random variable in [0, 1], $\omega$ 
 		is user-defined weight $0 < \omega < 1$, $m_i,\; F_i$ are mass and force 
 		functions, respectively, both defined by the authors.
 \end{itemize}
@@ -150,8 +155,8 @@ The center of mass is a geometric property of any object. Intuitively, it is the
 average location of the weight of an object. We can completely describe the motion 
 of any object through space in terms of the translation of the center of mass of 
 the object from one place to another, and the rotation of the object about its 
-center of mass if it is free to rotate. This is motivation for using center of mass
-concept, we translate the population to places where mass of entire population is
+center of mass if it is free to rotate. This is the motivation for using the center of mass
+concept, we translate the population to places where the mass of the entire population is
 maximum.\\
 % subsection motivation (end)
 
@@ -245,7 +250,8 @@ where
 	center of mass is:
 %
 \begin{equation}
-	\vec{c}_i = \dfrac{1} {K \alpha} \sum_{ \vec{u} \in U} \alpha \cdot \vec{u} =  \dfrac{1} {K } \sum_{\vec{u} \in U} \vec{u}.
+	\vec{c}_i = \dfrac{1} {K \alpha} \sum_{ \vec{u} \in U} \alpha \cdot \vec{u} %
+			  =  \dfrac{1} {K } \sum_{\vec{u} \in U} \vec{u}.
 	\label{eqn:center-geometric}
 \end{equation}
 %
@@ -365,7 +371,7 @@ between in (0, 2]. The size of the population was $N = 2K * D $.
 \label{sec:results}
 
 The statistical results obtained by ECA are reported in Table \ref{tab:eca}. 
-It is worth noting  that ECA obtained results close the optimum values 
+It is worth noting  that ECA obtained results close the optimum 
 while reporting low standard deviation values. Therefore, ECA behavior can 
 be considered as robust and suitable to deal with different type of search spaces. 
 Furthermore, we compared ECA against a nonlinear optimization algorithm (SQP) \cite{sqp}, 
