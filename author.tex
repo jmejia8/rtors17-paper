@@ -49,8 +49,8 @@ WWW home page: \texttt{https://www.uv.mx/ciia/}
 
 \begin{abstract}
 Physical phenomena have been the inspiration for proposing different
-optimization methods such as electro-search algorithm (ES), central force 
-optimization (CFO), and charged system search (CSS) among others. This work presents a new 
+optimization methods such as electro-search algorithm, central force 
+optimization, and charged system search among others. This work presents a new 
 optimization algorithm based on some principles from physics and
 mechanics, which is called Evolutionary Centers Algorithm (ECA). We utilize 
 the center of mass definition for creating new directions for moving the worst 
@@ -146,11 +146,15 @@ relates to what has been  described above. Section \ref{sec:results}
 presents the results obtained.  Section \ref{sec:conclusions} summarizes 
 our conclusions and Section \ref{sec:further_work}  indicates the future work. 
 
-\section{ECA} % (fold)
+\section{Evolutionary Centers Algorithm} % (fold)
+
+In this section, evolutionary centers algorithm (ECA) is detailed. Also, 
+experiments are presented.
+
 \label{sec:eca}
 %
 %
-\subsection*{Motivation} % (fold)
+\subsection{Motivation} % (fold)
 The center of mass is a geometric property of any object. Intuitively, it is the 
 average location of the weight of an object. We can completely describe the motion 
 of any object through space in terms of the translation of the center of mass of 
@@ -268,21 +272,14 @@ dealing with such issue.
 	Black point radius is its mass. Note the bias given by the weighted sum.}
 	\label{fig:masses}       % Give a unique label
 \end{figure}
-
+%
+%
 \begin{note}
 The bias is given by Equation (\ref{eqn:center}) because for a solution 
 with the highest mass, the position of the center of mass is nearest to 
 its position, see Figure \ref{fig:masses}.
 \end{note}
-
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=7cm]{img/ecaG.pdf}
-	\caption{Schematic diagram representing a generation of ECA. Gray points % 
-	represent elements in $U$.}
-	\label{fig:ecag}       % Give a unique label
-\end{figure}
-
+%
 \begin{algorithm}[!ht]
 	\caption{ECA pseudocode}
 	\label{algoritmoEca}
@@ -310,11 +307,20 @@ its position, see Figure \ref{fig:masses}.
 		\EndProcedure
 	\end{algorithmic}
 \end{algorithm}
+%
 
 Note that ECA  has only two parameters: the number of neighbors $K$ and 
 the stepsize $\eta_{\max}$.  For large $K$ values, ECA could converge 
 faster, we suggest $K = 7$, a value obtained experimentally. Figure \ref{fig:ecag} 
 shows a representation of ECA solution update. 
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=5cm]{img/ecaG.pdf}
+	\caption{Schematic diagram representing a generation of ECA. Gray points % 
+	represent elements in $U$.}
+	\label{fig:ecag}       % Give a unique label
+\end{figure}
 
 \subsection{Experiments} % (fold)
 \label{sub:experiments}
@@ -323,29 +329,29 @@ Algorithm \ref{algoritmoEca} details the procedure for the implementation
 of ECA. Such algorithm was coded in C language using a PC  with 
 quad-core 2.4 GHz CPU and 8 GB of RAM and it was tested in thirty 
 functions of CEC 2017 competition on real-parameter single-objective optimization \cite{cec2017}.\\
-
-
+%
+%
 \begin{table}[!ht]
 	% \centering
 	\caption{Representative functions from CEC 2017 benchmark. This set of %
 	functions are shifted  and rotated. The search range is $[-100,\; 100]^D$.}
 	\label{tab:funcs}
-	\begin{tabular}{llcc}
+	\begin{tabular}{llc}
 		\hline
-		Function & Formula  & Optimal  \\ \hline
-		Bent Cigar Function & $ \displaystyle f_1(\vec{x}) = x_1 + 10^6 \sum_{i=2}^D x_i^2 $  & 100 \\ \hline
+		Function & Formula    \\ \hline
+		Bent Cigar Function & $ \displaystyle f_1(\vec{x}) = x_1 + 10^6 \sum_{i=2}^D x_i^2 $  \\ \hline
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		Sum of Different Power Function & $ \displaystyle f_2(\vec{x}) = \sum_{i=1}^D |x_i|^{i+1} $  & 200 \\ \hline
+		Sum of Different Power Function & $ \displaystyle f_2(\vec{x}) = \sum_{i=1}^D |x_i|^{i+1} $  \\ \hline
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		Zakharov Function & $ \displaystyle f_3(\vec{x}) =  \sum_{i=1}^D x_i^2 + \left(\sum_{i=1}^D 0.5x_i\right)^2 + \left(\sum_{i=1}^D 0.5x_i\right)^4 $  & 300 \\ \hline
+		Zakharov Function & $ \displaystyle f_3(\vec{x}) =  \sum_{i=1}^D x_i^2 + \left(\sum_{i=1}^D 0.5x_i\right)^2 + \left(\sum_{i=1}^D 0.5x_i\right)^4 $  \\ \hline
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		Rastrigin Function & $ \displaystyle f_5(\vec{x}) =  10D + \sum_{i=1}^D (x_i^2 - 10\cos(2\pi x_i)) $  & 500 \\ \hline
+		Rastrigin Function & $ \displaystyle f_5(\vec{x}) =  10D + \sum_{i=1}^D (x_i^2 - 10\cos(2\pi x_i)) $  \\ \hline
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		High Conditioned Elliptic Function & $ \displaystyle f_{11}(\vec{x}) =  \sum_{i=1}^D (10^6)^{\dfrac{i-1}{D-1}} x_i^2 $  & 1100 \\ \hline
+		High Conditioned Elliptic Function & $ \displaystyle f_{11}(\vec{x}) =  \sum_{i=1}^D (10^6)^{\dfrac{i-1}{D-1}} x_i^2 $  \\ \hline
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		Discus Function & $ \displaystyle f_{12}(\vec{x}) = 10^6 x_1^2 +\sum_{i=2}^D x_i^2 $  & 1200 \\ \hline
+		Discus Function & $ \displaystyle f_{12}(\vec{x}) = 10^6 x_1^2 +\sum_{i=2}^D x_i^2 $  \\ \hline
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		Griewank’s Function & $ \displaystyle f_{15}(\vec{x}) =  \sum_{i=1}^D \dfrac{x_i^2}{4000} - \prod_{i=1}^D \cos\left( \dfrac{x_i}{\sqrt{i}} \right) + 1 $  & 1500 \\ \hline
+		Griewank’s Function & $ \displaystyle f_{15}(\vec{x}) =  \sum_{i=1}^D \dfrac{x_i^2}{4000} - \prod_{i=1}^D \cos\left( \dfrac{x_i}{\sqrt{i}} \right) + 1 $  \\ \hline
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\end{tabular}
 \end{table}
@@ -353,17 +359,11 @@ functions of CEC 2017 competition on real-parameter single-objective optimizatio
 
 For this experimentation, $D = 10$ was considered. Here, the optimal values for the test 
 functions are known (see Table \ref{tab:funcs} where representative functions are shown). There is also a maximum number of 
-evaluations equal to \textit{max\_nfes} $= D \times 10,000$.\\
+evaluations equal to $10,000D$.\\
 
 The parameters in all experiments were: $K = 7$, $\eta_i$ is a uniform random number 
 between in (0, 2]. The size of the population was $N = 2K * D $.
 
-% subsection algorithm_description (end)
-
-
-% subsection experiments (end)
-
-% section eca (end)
 
 
 
@@ -403,9 +403,9 @@ computationally-expensive real-world optimization problems.
 \centering
 \caption{Results of 51 independent runs of ECA on CEC17 problems for $D=10$.}
 \label{tab:eca}
-\scalebox{0.7}{
+\scalebox{1}{
 	\renewcommand{\arraystretch}{1.3}
-	\begin{tabular}{p{1cm}p{2.5cm}p{2.5cm}p{2.5cm}p{2.5cm}p{2.5cm}}
+	\begin{tabular}{p{0.5cm}p{2.1cm}p{2.1cm}p{2.1cm}p{2.1cm}p{2.1cm}}
 		\hline
 		% \noalign{\smallskip}
 		$f$ & Best & Worst & Median & Mean &  Std. \\
@@ -456,9 +456,9 @@ computationally-expensive real-world optimization problems.
 	\label{tab:jso}
 	%
 	%
-\scalebox{0.7}{
+\scalebox{1}{
 	\renewcommand{\arraystretch}{1.3}
-	\begin{tabular}{p{1cm}p{2.3cm}p{0.5cm}p{2.3cm}p{2.3cm}p{0.5cm}}
+	\begin{tabular}{p{1cm}p{3cm}p{0.5cm}p{3cm}p{2.5cm}p{1.0cm}}
 		\hline
 		% \noalign{\smallskip}
 		$f$ & ECA &  & jSO & SQP  \\
@@ -517,6 +517,7 @@ besides the population size.\\
 
 % section conclusions (end)
 
+\clearpage
 \section{Further Work} % (fold)
 \label{sec:further_work}
 
@@ -526,7 +527,6 @@ from this current research.
 
 % section further_work (end)
 
-\clearpage
 \bibliographystyle{plain}
 \bibliography{references}
 
